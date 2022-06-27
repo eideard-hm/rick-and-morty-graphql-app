@@ -1,0 +1,13 @@
+<ng-container *ngIf="loading$ | async; else showEpisodes">
+    <div>Loading...</div>
+</ng-container>
+
+<ng-template #showEpisodes>
+    <div class="container">
+      <ul class="episodes__list">
+        <li *ngFor="let episode of episodes$ | async">
+          {{ episode.episode }} - {{ episode.name }}
+        </li>
+      </ul>
+    </div>
+</ng-template>

@@ -1,0 +1,14 @@
+<ng-container *ngIf="loading$ | async; else loading">
+  <div>loading...</div>
+</ng-container>
+
+<ng-template #loading>
+  <ul>
+      <li *ngFor="let character of characters$ | async">
+          <a [routerLink]="['/characters', character.name]">
+              {{ character.name }}
+          </a>
+      </li>
+  </ul>
+</ng-template>
+
