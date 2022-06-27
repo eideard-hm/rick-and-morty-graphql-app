@@ -14,6 +14,7 @@ export interface Characters {
 }
 
 export interface CharactersResult {
+  id:           number;
   name:         string;
   status:       Status;
   species:      Species;

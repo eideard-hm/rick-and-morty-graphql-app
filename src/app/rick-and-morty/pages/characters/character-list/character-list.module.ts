@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ComponentsModule } from '@rickAndMorty/components/components.module';
 import { ChacterListRoutingModule } from './character-list-routing.module';
 import { CharacterListComponent } from './character-list.component';
 
@@ -11,7 +12,8 @@ import { CharacterListComponent } from './character-list.component';
   ],
   imports: [
     CommonModule,
-    ChacterListRoutingModule
+    ChacterListRoutingModule,
+    ComponentsModule
   ]
 })
 export class ChacterListModule { }

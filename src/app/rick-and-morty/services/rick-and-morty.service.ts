@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import { CharactersResult, EpisodesResult } from '../interfaces/rick-and-morty.interface';
 
-const GET_CHARACTERS = gql`
+const GET_CHARACTERS_AND_EPISODES = gql`
   {
     episodes{
       results {
@@ -16,6 +16,7 @@ const GET_CHARACTERS = gql`
 
     characters{
       results {
+        id
         name
         status
         species
@@ -59,7 +60,7 @@ export class RickAndMortyService {
 
   private getEpisoresAndCharacters() {
     this.apollo.watchQuery({
-      query: GET_CHARACTERS
+      query: GET_CHARACTERS_AND_EPISODES
     })
       .valueChanges
       .subscribe(({ data, loading }: any) => {

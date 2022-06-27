@@ -6,7 +6,7 @@ import { CharactersResult } from '@rickAndMorty/interfaces/rick-and-morty.interf
 import { RickAndMortyService } from '@rickAndMorty/services/rick-and-morty.service';
 
 @Component({
-  selector: 'app-chacter-list',
+  selector: 'app-character-list',
   templateUrl: './character-list.component.html',
   styleUrls: ['./character-list.component.scss']
 })
