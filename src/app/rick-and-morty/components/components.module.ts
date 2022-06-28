@@ -3,21 +3,18 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { CharacterCardComponent } from './character-card/character-card.component';
-import { LoadingComponent } from './loading/loading.component';
 
 
 @NgModule({
   declarations: [
-    CharacterCardComponent,
-    LoadingComponent
+    CharacterCardComponent
   ],
   imports: [
     CommonModule,
     RouterModule
   ],
   exports: [
-    CharacterCardComponent,
-    LoadingComponent
+    CharacterCardComponent
   ]
 })
 export class ComponentsModule { }

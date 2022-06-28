@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Apollo, gql } from 'apollo-angular';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable, pluck, take, withLatestFrom } from 'rxjs';
 
 import { CharactersResult, EpisodesResult } from '../interfaces/rick-and-morty.interface';
 
@@ -25,6 +25,27 @@ const GET_CHARACTERS_AND_EPISODES = gql`
           name
         }
         location{
+          name
+        }
+        image
+      }
+    }
+  }
+`
+
+const GET_CHARACTERS_BY_PAGE = gql`
+  query GetCharactersByPage($page: Int!) {
+    characters(page: $page) {
+      results {
+        id
+        name
+        status
+        species
+        gender
+        origin {
+          name
+        }
+        location {
           name
         }
         image
@@ -68,5 +89,22 @@ export class RickAndMortyService {
         this.charactersSubject.next(data.characters.results);
         this.loadingSubject.next(loading);
       });
+  }
+
+  getChactersByPage(page: number): void {
+    this.apollo.watchQuery({
+      query: GET_CHARACTERS_BY_PAGE,
+      variables: {
+        page
+      }
+    })
+    .valueChanges
+    .pipe(
+      take(1),
+      pluck('data', 'characters'),
+      withLatestFrom(this.characters$),
+      map(([newCharacters, oldCharacters]: any) => [...oldCharacters, ...newCharacters.results]),
+    )
+    .subscribe((res) => this.charactersSubject.next(res));
   }
 }

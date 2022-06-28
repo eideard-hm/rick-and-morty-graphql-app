@@ -1,11 +1,17 @@
 <ng-container *ngIf="loading$ | async; else showCharacters">
-  <app-loading></app-loading>
+  <app-spinner></app-spinner>
 </ng-container>
 
 <ng-template #showCharacters>
-  <section class="character__list">
+  <section class="character__list"
+           infinite-scroll
+           (scrolled)="onScrolled()">
     <app-character-card *ngFor="let character of characters$ | async"
                         [character]="character"></app-character-card>
+
+    <button class="button"
+            *ngIf="showButtonUp"
+            (click)="onScrollTop()">🔼</button>
   </section>
 </ng-template>
 
