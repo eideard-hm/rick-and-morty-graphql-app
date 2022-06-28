@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { ChacterDetailRoutingModule } from './character-detail-routing.module';
 import { CharacterDetailComponent } from './character-detail.component';
+import { ComponentsModule } from '@rickAndMorty/components/components.module';
+import { SharedModule } from '@shared/shared.module';
 
 
 @NgModule({
@@ -10,8 +12,10 @@ import { CharacterDetailComponent } from './character-detail.component';
     CharacterDetailComponent
   ],
   imports: [
+    ChacterDetailRoutingModule,
     CommonModule,
-    ChacterDetailRoutingModule
+    ComponentsModule,
+    SharedModule
   ]
 })
 export class ChacterDetailModule { }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Apollo, gql } from 'apollo-angular';
-import { BehaviorSubject, map, Observable, pluck, take, withLatestFrom } from 'rxjs';
+import { BehaviorSubject, find, map, Observable, pluck, take, withLatestFrom, mergeMap } from 'rxjs';
 
 import { CharactersResult, EpisodesResult } from '../interfaces/rick-and-morty.interface';
 
@@ -67,11 +67,11 @@ export class RickAndMortyService {
     this.getEpisoresAndCharacters();
   }
 
-  get episodes$(): Observable<any[]> {
+  get episodes$(): Observable<EpisodesResult[]> {
     return this.episodesSubject.asObservable();
   }
 
-  get characters$(): Observable<any[]> {
+  get characters$(): Observable<CharactersResult[]> {
     return this.charactersSubject.asObservable();
   }
 
@@ -106,5 +106,13 @@ export class RickAndMortyService {
       map(([newCharacters, oldCharacters]: any) => [...oldCharacters, ...newCharacters.results]),
     )
     .subscribe((res) => this.charactersSubject.next(res));
+  }
+
+  getCharacterById(characterId: number): Observable<CharactersResult | undefined> {
+    return this.characters$
+    .pipe(
+      mergeMap((characters: CharactersResult[]) => characters),
+      find((character: CharactersResult) => character.id === characterId),
+    );
   }
 }

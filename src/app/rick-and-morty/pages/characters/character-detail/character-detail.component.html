@@ -1,1 +1,8 @@
-<p>chacter-detail works!</p>
+<section class="character__details"
+         *ngIf="character$ | async as character; else showLoading">
+  <app-character-card [character]="character"></app-character-card>
+</section>
+
+<ng-template #showLoading>
+  <app-spinner></app-spinner>
+</ng-template>
